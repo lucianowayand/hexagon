@@ -1,12 +1,9 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -25,7 +22,7 @@ model Project {
 }
 
 model Passwords {
-  id        String   @id @default(uuid())
+  id        String   @id
   platform  String
   website   String
   user      String
@@ -35,38 +32,30 @@ model Passwords {
 }
 
 model User {
-  id      Int       @id @default(autoincrement())
-  email   String    @unique
-  name    String
-  admin   Boolean   @default(false)
-  Journal Journal[]
-  Post    Post[]
-  Comment Comment[]
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String
+  admin Boolean @default(false)
 }
 
 model Comment {
   id        Int      @id @default(autoincrement())
   content   String
   createdAt DateTime @default(now())
-  Post      Post     @relation(fields: [PostId], references: [id])
   PostId    Int
-  User      User     @relation(fields: [UserId], references: [id])
   UserId    Int
 }
 
 model Post {
-  id          Int       @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   title       String
   description String
   content     String
-  User        User      @relation(fields: [UserId], references: [id])
   UserId      Int
-  Comment     Comment[]
 }
 
 model Journal {
   id        Int      @id @default(autoincrement())
-  User      User     @relation(fields: [UserId], references: [id])
   UserId    Int
   entry     String
   createdAt DateTime @default(now())
