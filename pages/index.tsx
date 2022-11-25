@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import HomeLayout from "../components/HomeLayout";
 
 export async function getStaticProps() {
 	const res = await fetch(process.env.BASE_URL + "/api/attributes");
@@ -17,8 +18,8 @@ export default function Home({ attributes }: any) {
 	}, []);
 
 	return (
-		<div style={{ height: "100vh", width: "100vw", padding: "1em" }}>
+		<HomeLayout>
 			<h1>Content</h1>
-		</div>
+		</HomeLayout>
 	);
 }
