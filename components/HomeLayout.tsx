@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { ReactNode, useContext } from "react";
-import { Context } from "../context/context";
+import { Context } from "../context/AttributesContext";
 
 export default function HomeLayout({ children }: { children: ReactNode }) {
 	const { title, primaryColor, secondaryColor } = useContext(Context)
