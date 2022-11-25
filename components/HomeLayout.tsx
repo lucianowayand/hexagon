@@ -9,6 +9,8 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
 		margin: "1rem",
 		textDecoration: "none",
 		color: secondaryColor,
+		fontWeight: "bold",
+		fontSize: 32
 	};
 
 	return (
