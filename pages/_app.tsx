@@ -6,7 +6,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<>
 			<Head>
-				<script src="https://cdn.tailwindcss.com"></script>
+				<script src="https://cdn.tailwindcss.com" async/>
 			</Head>
 			<Component {...pageProps} />;
 		</>
