@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../services/prisma";
+import { prisma } from "../../../services/prisma";
 
 export default async function getAttributes(req: NextApiRequest, res: NextApiResponse){
     const attributes = await prisma.attribute.findMany()
