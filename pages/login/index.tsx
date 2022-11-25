@@ -23,14 +23,14 @@ export default function Login() {
 				style={
 					primaryColor !== "#000"
 						? {
-								backgroundColor: Color(primaryColor).lighten(0.7),
-								borderColor: Color(primaryColor).darken(0.2),
-								color: Color(primaryColor).darken(0.3),
+								backgroundColor: Color(primaryColor).lighten(0.7).string(),
+								borderColor: Color(primaryColor).darken(0.2).string(),
+								color: Color(primaryColor).darken(0.3).string(),
 						  }
 						: {
-								backgroundColor: Color("grey").lighten(0.7),
-								borderColor: Color("grey").darken(0.2),
-								color: Color("grey").darken(0.3),
+								backgroundColor: Color("grey").lighten(0.7).string(),
+								borderColor: Color("grey").darken(0.2).string(),
+								color: Color("grey").darken(0.3).string(),
 						  }
 				}
 			>
