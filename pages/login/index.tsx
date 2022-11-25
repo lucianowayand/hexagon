@@ -3,8 +3,10 @@ import { useContext } from "react";
 import { ArrowFunction } from "typescript";
 import { Context } from "../../context/AttributesContext";
 
+import Color from "color";
+
 export default function Login() {
-	const { title } = useContext(Context);
+	const { title, primaryColor } = useContext(Context);
 
 	const Label = ({ children }: { children: React.ReactNode }) => {
 		return <label className="text-gray-500">{children}</label>;
@@ -16,7 +18,22 @@ export default function Login() {
 
 	const Button = ({ children }: { children: React.ReactNode }) => {
 		return (
-			<button className="p-1 mt-5 mb-5 w-full bg-yellow-100 border border-yellow-300 text-yellow-600">
+			<button
+				className="p-1 mt-5 mb-5 w-full rounded border-2"
+				style={
+					primaryColor !== "#000"
+						? {
+								backgroundColor: Color(primaryColor).lighten(0.7),
+								borderColor: Color(primaryColor).darken(0.2),
+								color: Color(primaryColor).darken(0.3),
+						  }
+						: {
+								backgroundColor: Color("grey").lighten(0.7),
+								borderColor: Color("grey").darken(0.2),
+								color: Color("grey").darken(0.3),
+						  }
+				}
+			>
 				{children}
 			</button>
 		);
