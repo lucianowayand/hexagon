@@ -14,7 +14,8 @@ const AttributesProvider = ({ children }: { children: React.ReactNode }) => {
         primaryColor: '#fff',
         secondaryColor: '#000',
     })
-    
+    const [isLoading, setIsloading] = useState(true)
+
     const getAttributes =async () => {
         const res = await api.get('/api/attributes')
         setAttributes({
@@ -22,6 +23,7 @@ const AttributesProvider = ({ children }: { children: React.ReactNode }) => {
             primaryColor: res.data.find((value: any) => value.name === "primaryColor").value,
             secondaryColor: res.data.find((value: any) => value.name === "secondaryColor").value,
         })
+        setIsloading(false)
     }
     
     useEffect(() => {
@@ -30,7 +32,7 @@ const AttributesProvider = ({ children }: { children: React.ReactNode }) => {
     
     return (
         <Context.Provider value={{ title: attributes.title, primaryColor: attributes.primaryColor, secondaryColor: attributes.secondaryColor }}>
-            {children}
+            {isLoading === false? children : null}
         </Context.Provider>
     )
 }
