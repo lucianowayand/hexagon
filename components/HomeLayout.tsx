@@ -21,9 +21,6 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
 				</Link>
 				<div style={{ display: "flex", flexDirection: "row" }}>
 					<Link href="/#" style={linkStyle}>
-						<h1>Blog</h1>
-					</Link>
-					<Link href="/#" style={linkStyle}>
 						<h1>Crew</h1>
 					</Link>
 					<Link href="/#" style={linkStyle}>
