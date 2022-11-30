@@ -5,7 +5,8 @@ const nextConfig = {
   i18n:{
     locales: ['en-US', 'pt-BR'],
     defaultLocale: 'en-US'
-  }
+  },
+  pageExtensions: ["page.tsx", "api.ts"]
 }
 
 module.exports = nextConfig
