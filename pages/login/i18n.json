@@ -1,0 +1,29 @@
+{
+    "cp-PS":{
+        "subtitle":"",
+        "email":"",
+        "email_placeholder":"",
+        "password":"",
+        "forgot_password":"",
+        "login":"",
+        "register":""
+    },
+    "en-US":{
+        "subtitle":"Login page",
+        "email":"Email",
+        "email_placeholder":"Email address.",
+        "password":"Password",
+        "forgot_password":"Forgot your password?",
+        "login":"Login",
+        "register":"Register"
+    },
+    "pt-BR":{
+        "subtitle":"Página de login",
+        "email":"Email",
+        "email_placeholder":"Endereço de email.",
+        "password":"Senha",
+        "forgot_password":"Esqueceu sua senha?",
+        "login":"Login",
+        "register":"Cadastre-se"
+    }
+}
