@@ -45,7 +45,7 @@ export default function Login() {
 		<div className="flex flex-col justify-center items-center h-screen">
 			<div className="w-3/12 mb-24">
 				<div className="mb-6 text-center">
-					<Link href="#" className="text-5xl font-black">
+					<Link href="/" className="text-5xl font-black">
 						{title}
 					</Link>
 					<h3 className="-translate-y-1">{text.subtitle}</h3>
