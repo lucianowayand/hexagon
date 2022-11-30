@@ -1,0 +1,17 @@
+{
+    "cp-PS":{
+        "members":"",
+        "projects":"",
+        "sponsors":""
+    },
+    "en-US":{
+        "members":"Members",
+        "projects":"Projects",
+        "sponsors":"Sponsors"
+    },
+    "pt-BR":{
+        "members":"Membros",
+        "projects":"Projetos",
+        "sponsors":"Patrocinadores"
+    }
+}
