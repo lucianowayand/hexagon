@@ -2,14 +2,14 @@
 import { createContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 
-export const Context = createContext({
+export const ThemeContext = createContext({
     title: "hexagon",
     primaryColor: '#fff',
     secondaryColor: '#000',
     language: 'en-US'
 })
 
-const AttributesProvider = ({ children }: { children: React.ReactNode }) => {
+const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     const [attributes, setAttributes] = useState({
         title: "hexagon",
         primaryColor: '#fff',
@@ -35,7 +35,7 @@ const AttributesProvider = ({ children }: { children: React.ReactNode }) => {
     }, [])
 
     return (
-        <Context.Provider
+        <ThemeContext.Provider
             value={{
                 title: attributes.title,
                 primaryColor: attributes.primaryColor,
@@ -43,8 +43,8 @@ const AttributesProvider = ({ children }: { children: React.ReactNode }) => {
                 language: attributes.language
             }}>
             {isLoading === false ? children : null}
-        </Context.Provider>
+        </ThemeContext.Provider>
     )
 }
 
-export default AttributesProvider
+export default ThemeProvider

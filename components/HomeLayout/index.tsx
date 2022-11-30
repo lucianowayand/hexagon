@@ -1,12 +1,12 @@
 import React, { ReactNode, useContext } from "react";
-import { Context } from "../../context/AttributesContext";
+import { ThemeContext } from "../../context/ThemeContext";
 
 import { In18 } from "./types";
 import i18n from './i18n.json'
 import Link from "next/link";
 
 export default function HomeLayout({ children }: { children: ReactNode }) {
-	const { title, primaryColor, secondaryColor, language } = useContext(Context)
+	const { title, primaryColor, secondaryColor, language } = useContext(ThemeContext)
 
 	const text = ((i18n as any)[language]) as In18
 

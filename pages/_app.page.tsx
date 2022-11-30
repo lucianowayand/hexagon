@@ -1,11 +1,11 @@
 import type { AppProps } from "next/app";
-import AttributesProvider from "../context/AttributesContext";
+import ThemeProvider from "../context/ThemeContext";
 import "../styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
-		<AttributesProvider>
+		<ThemeProvider>
 			<Component {...pageProps} />
-		</AttributesProvider>
+		</ThemeProvider>
 	);
 }

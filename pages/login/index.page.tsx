@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Context } from "../../context/AttributesContext";
+import { ThemeContext } from "../../context/ThemeContext";
 import { In18 } from "./types";
 import i18n from './i18n.json'
 
