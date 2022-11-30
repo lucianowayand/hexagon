@@ -45,7 +45,7 @@ export default function Login() {
 		<div className="flex flex-col justify-center items-center h-screen">
 			<div className="w-3/12 mb-24">
 				<div className="mb-6 text-center">
-					<Link href="/" className="text-5xl font-black">
+					<Link href="#" className="text-5xl font-black">
 						{title}
 					</Link>
 					<h3 className="-translate-y-1">{text.subtitle}</h3>
@@ -58,7 +58,7 @@ export default function Login() {
 					<div className="flex flex-col">
 						<Label>{text.password}</Label>
 						<Input placeholder="********" type="password" />
-						<Link href="/#" className="underline text-xs pt-1 text-gray-500">
+						<Link href="#" className="underline text-xs pt-1 text-gray-500">
 							{text.forgot_password}
 						</Link>
 					</div>
@@ -66,7 +66,7 @@ export default function Login() {
 						<Button>{text.login}</Button>
 					</div>
 					<div className="flex justify-center">
-						<Link href="/#" className="underline text-gray-500">
+						<Link href="#" className="underline text-gray-500">
 							{text.register}
 						</Link>
 					</div>
