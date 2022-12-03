@@ -3,8 +3,8 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { AuthContextType } from "./types";
 import { User } from "../../types";
 import { auth } from "../../services/firebase";
-import { prisma } from "../../services/prisma";
 import { api } from "../../services/api";
+import { useRouter } from "next/router";
 
 const defaultValues: AuthContextType = {
 	handleGoogleSignIn: async () => { },
@@ -31,10 +31,12 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		return undefined;
 	}
 
+	const router = useRouter()
+
 	function signOut(){
 		localStorage.removeItem("user");
-		setIsloading(true)
 		setUser(undefined);
+		router.push('/')
 	}
 
 	async function handleGoogleSignIn() {
