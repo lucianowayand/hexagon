@@ -6,6 +6,7 @@ interface In18 {
     forgot_password: string
     login: string
     register: string
+    or: string
 }
 
 export type {

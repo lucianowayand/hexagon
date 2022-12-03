@@ -32,10 +32,11 @@ model Passwords {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String
-  admin Boolean @default(false)
+  id         Int     @id @default(autoincrement())
+  email      String  @unique
+  name       String
+  firebaseId String  @unique
+  admin      Boolean @default(false)
 }
 
 model Comment {

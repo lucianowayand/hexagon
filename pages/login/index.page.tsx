@@ -1,14 +1,29 @@
-import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext, useEffect } from "react";
+import Link from 'next/link';
 import { In18 } from "./types";
-import i18n from './i18n.json'
+import i18n from "./i18n.json";
 
-import Link from "next/link";
 import Color from "color";
 
+import google from "./assets/google.svg";
+import Image from "next/image";
+import Divider from "../../components/Divider";
+import { useRouter } from "next/router";
+
 export default function Login() {
-	const { title, primaryColor, language } = useContext(Context);
-	const text = ((i18n as any)[language]) as In18
+	const { title, primaryColor, language } = useContext(ThemeContext);
+	const { handleGoogleSignIn, user } = useContext(AuthContext);
+	const text = (i18n as any)[language] as In18;
+
+	const router = useRouter();
+
+	useEffect(()=>{
+		if(user){
+			router.push("/dashboard")
+		}
+	}, [user])
 
 	const Label = ({ children }: { children: React.ReactNode }) => {
 		return <label className="text-gray-500">{children}</label>;
@@ -18,25 +33,37 @@ export default function Login() {
 		return <input className="bg-gray-100 p-2 rounded border" placeholder={placeholder} type={type} />;
 	};
 
-	const Button = ({ children }: { children: React.ReactNode }) => {
+	const LoginButton = ({ children }: { children: React.ReactNode }) => {
 		return (
 			<button
+				onClick={handleGoogleSignIn}
 				className="p-1 mt-5 mb-5 w-full rounded border-2"
 				style={
 					primaryColor !== "#000"
 						? {
-							backgroundColor: Color(primaryColor).lighten(0.7).string(),
-							borderColor: Color(primaryColor).darken(0.2).string(),
-							color: Color(primaryColor).darken(0.3).string(),
-						}
+								backgroundColor: Color(primaryColor).lighten(0.7).string(),
+								borderColor: Color(primaryColor).darken(0.2).string(),
+								color: Color(primaryColor).darken(0.3).string(),
+						  }
 						: {
-							backgroundColor: Color("grey").lighten(0.7).string(),
-							borderColor: Color("grey").darken(0.2).string(),
-							color: Color("grey").darken(0.3).string(),
-						}
+								backgroundColor: Color("grey").lighten(0.7).string(),
+								borderColor: Color("grey").darken(0.2).string(),
+								color: Color("grey").darken(0.3).string(),
+						  }
 				}
 			>
 				{children}
+			</button>
+		);
+	};
+
+	const GoogleLoginButton = ({ children }: { children: React.ReactNode }) => {
+		return (
+			<button onClick={handleGoogleSignIn} className="p-1 mt-5 mb-5 w-full rounded border-2">
+				<div className="flex items-center">
+					<Image src={google} alt="google-icon" style={{ height: "1.3em" }} />
+					Continue with Google
+				</div>
 			</button>
 		);
 	};
@@ -58,18 +85,18 @@ export default function Login() {
 					<div className="flex flex-col">
 						<Label>{text.password}</Label>
 						<Input placeholder="********" type="password" />
-						<Link href="#" className="underline text-xs pt-1 text-gray-500">
-							{text.forgot_password}
-						</Link>
+						<div className="flex justify-between pt-2">
+							<Link href="#" className="underline text-xs pt-1 text-gray-500">
+								{text.forgot_password}
+							</Link>
+							<Link href="#" className="underline text-xs pt-1 text-gray-500">
+								{text.register}
+							</Link>
+						</div>
 					</div>
-					<div>
-						<Button>{text.login}</Button>
-					</div>
-					<div className="flex justify-center">
-						<Link href="#" className="underline text-gray-500">
-							{text.register}
-						</Link>
-					</div>
+					<LoginButton>{text.login}</LoginButton>
+					<Divider text={text.or} />
+					<GoogleLoginButton>Continue with Google</GoogleLoginButton>
 				</div>
 			</div>
 		</div>

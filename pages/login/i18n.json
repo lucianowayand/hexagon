@@ -6,7 +6,8 @@
         "password":"",
         "forgot_password":"",
         "login":"",
-        "register":""
+        "register":"",
+        "or":""
     },
     "en-US":{
         "subtitle":"Login page",
@@ -15,7 +16,8 @@
         "password":"Password",
         "forgot_password":"Forgot your password?",
         "login":"Login",
-        "register":"Register"
+        "register":"Register",
+        "or":"or"
     },
     "pt-BR":{
         "subtitle":"Página de login",
@@ -24,6 +26,7 @@
         "password":"Senha",
         "forgot_password":"Esqueceu sua senha?",
         "login":"Login",
-        "register":"Cadastre-se"
+        "register":"Cadastre-se",
+        "or":"ou"
     }
 }
