@@ -1,6 +1,7 @@
 import { ThemeContext } from "../../context/ThemeContext";
 import { AuthContext } from "../../context/AuthContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import Link from 'next/link';
 import { In18 } from "./types";
 import i18n from "./i18n.json";
@@ -16,14 +17,21 @@ export default function Login() {
 	const { title, primaryColor, language } = useContext(ThemeContext);
 	const { handleGoogleSignIn, user } = useContext(AuthContext);
 	const text = (i18n as any)[language] as In18;
-
 	const router = useRouter();
 
-	useEffect(()=>{
-		if(user){
+	const [newUser, setNewUser] = useState(false)
+
+	const { register, handleSubmit, formState: { errors } } = useForm();
+
+	useEffect(() => {
+		if (user) {
 			router.push("/dashboard")
 		}
 	}, [user])
+
+	const submitFunction = (data:any) => {
+		console.log(data)
+	}
 
 	const Label = ({ children }: { children: React.ReactNode }) => {
 		return <label className="text-gray-500">{children}</label>;
@@ -36,20 +44,20 @@ export default function Login() {
 	const LoginButton = ({ children }: { children: React.ReactNode }) => {
 		return (
 			<button
-				onClick={handleGoogleSignIn}
+				type="submit"
 				className="p-1 mt-5 mb-5 w-full rounded border-2"
 				style={
 					primaryColor !== "#000"
 						? {
-								backgroundColor: Color(primaryColor).lighten(0.7).string(),
-								borderColor: Color(primaryColor).darken(0.2).string(),
-								color: Color(primaryColor).darken(0.3).string(),
-						  }
+							backgroundColor: Color(primaryColor).lighten(0.7).string(),
+							borderColor: Color(primaryColor).darken(0.2).string(),
+							color: Color(primaryColor).darken(0.3).string(),
+						}
 						: {
-								backgroundColor: Color("grey").lighten(0.7).string(),
-								borderColor: Color("grey").darken(0.2).string(),
-								color: Color("grey").darken(0.3).string(),
-						  }
+							backgroundColor: Color("grey").lighten(0.7).string(),
+							borderColor: Color("grey").darken(0.2).string(),
+							color: Color("grey").darken(0.3).string(),
+						}
 				}
 			>
 				{children}
@@ -77,27 +85,40 @@ export default function Login() {
 					</Link>
 					<h3 className="-translate-y-1">{text.subtitle}</h3>
 				</div>
-				<div className="flex flex-col">
+				<form className="flex flex-col" onSubmit={handleSubmit(submitFunction)}>
+					{newUser ? <div className="flex flex-col pb-4">
+						<Label>{text.name}</Label>
+						<Input placeholder={text.name_placeholder} type="text" {...register("name")}/>
+					</div> : null}
 					<div className="flex flex-col pb-4">
 						<Label>{text.email}</Label>
-						<Input placeholder={text.email_placeholder} type="email" />
+						<Input placeholder={text.email_placeholder} type="email"  {...register("email")}/>
 					</div>
-					<div className="flex flex-col">
+					<div className="flex flex-col pb-4">
 						<Label>{text.password}</Label>
-						<Input placeholder="********" type="password" />
+						<Input placeholder="********" type="password"  {...register("password")} />
+					</div>
+					{!newUser ? <div className="flex flex-col">
 						<div className="flex justify-between pt-2">
 							<Link href="#" className="underline text-xs pt-1 text-gray-500">
 								{text.forgot_password}
 							</Link>
-							<Link href="#" className="underline text-xs pt-1 text-gray-500">
+							<Link href="" onClick={() => setNewUser(true)} className="underline text-xs pt-1 text-gray-500">
 								{text.register}
 							</Link>
 						</div>
-					</div>
+					</div> : <div className="flex justify-between pt-2">
+							<Link href="#" className="underline text-xs pt-1 text-gray-500">
+								{text.forgot_password}
+							</Link>
+							<Link href="" onClick={() => setNewUser(false)} className="underline text-xs pt-1 text-gray-500">
+								{text.login}
+							</Link>
+						</div>}
 					<LoginButton>{text.login}</LoginButton>
 					<Divider text={text.or} />
 					<GoogleLoginButton>Continue with Google</GoogleLoginButton>
-				</div>
+				</form>
 			</div>
 		</div>
 	);

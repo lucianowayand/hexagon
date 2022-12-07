@@ -5,6 +5,8 @@
         "email_placeholder":"",
         "password":"",
         "forgot_password":"",
+        "name": "",
+        "name_placeholder":"",
         "login":"",
         "register":"",
         "or":""
@@ -15,6 +17,8 @@
         "email_placeholder":"Email address.",
         "password":"Password",
         "forgot_password":"Forgot your password?",
+        "name":"Name",
+        "name_placeholder":"Enter your full name",
         "login":"Login",
         "register":"Register",
         "or":"or"
@@ -25,6 +29,8 @@
         "email_placeholder":"Endereço de email.",
         "password":"Senha",
         "forgot_password":"Esqueceu sua senha?",
+        "name":"Nome",
+        "name_placeholder":"Nome completo",
         "login":"Login",
         "register":"Cadastre-se",
         "or":"ou"
