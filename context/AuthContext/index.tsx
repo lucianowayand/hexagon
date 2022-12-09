@@ -42,8 +42,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	}
 
 	async function handleGoogleSignIn() {
+		console.log("handleGoogleSignIn")
 		const provider = new GoogleAuthProvider();
 		const response = await signInWithPopup(auth, provider);
+		console.log(response)
 		try {
 			const res = await api.post("/api/users", { uid: response.user.uid, name: response.user.displayName, email: response.user.email })
 			setUser(res.data)

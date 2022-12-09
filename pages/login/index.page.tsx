@@ -24,9 +24,14 @@ export default function Login() {
 	const { register, handleSubmit, formState: { errors } } = useForm();
 
 	useEffect(() => {
-		if (user) {
-			router.push("/dashboard")
+		if (user !== undefined) {
+			if (user.admin === true) {
+				router.push("/dashboard")
+			} else {
+				router.push("/")
+			}
 		}
+
 	}, [user])
 
 	const submitFunction = async (data: any) => {
@@ -53,7 +58,7 @@ export default function Login() {
 	const LoginButton = ({ children }: { children: React.ReactNode }) => {
 		return (
 			<button
-				type="submit"
+				onClick={handleSubmit(submitFunction)}
 				className="p-1 mt-5 mb-5 w-full rounded border-2"
 				style={
 					primaryColor !== "#000"
@@ -94,7 +99,7 @@ export default function Login() {
 					</Link>
 					<h3 className="-translate-y-1">{text.subtitle}</h3>
 				</div>
-				<form className="flex flex-col" onSubmit={handleSubmit(submitFunction)}>
+				<div className="flex flex-col">
 					{newUser ? <div className="flex flex-col pb-4">
 						<Label>{text.name}</Label>
 						<Input placeholder={text.name_placeholder} type="text" data="name" />
@@ -127,7 +132,7 @@ export default function Login() {
 					<LoginButton>{text.login}</LoginButton>
 					<Divider text={text.or} />
 					<GoogleLoginButton>Continue with Google</GoogleLoginButton>
-				</form>
+				</div>
 			</div>
 		</div>
 	);

@@ -9,8 +9,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const router = useRouter()
 
     useEffect(() => {
-        if (!user) {
-            router.push("/login")
+        if (!user!.admin) {
+            router.push("/")
         }
     }, [user])
 
