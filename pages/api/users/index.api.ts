@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../services/prisma";
 
+import { type Prisma } from "@prisma/client";
+
 export default async function UserApi(req: NextApiRequest, res: NextApiResponse) {
 	switch (req.method) {
 		case "POST":
@@ -13,15 +15,15 @@ export default async function UserApi(req: NextApiRequest, res: NextApiResponse)
 			if (post !== null) {
 				res.status(200).json(post);
 			} else {
-				const google = await prisma.user.create({
-					data: {
-						firebaseId: req.body.uid,
-						name: req.body.name,
+				const payload: Prisma.UserCreateInput = {
 						email: req.body.email,
-						admin: false,
-					},
-				});
-				res.status(200).json(google);
+						name: req.body.name,
+						firebaseId: req.body.firebaseId,
+						admin: false
+				}
+
+				const user = await prisma.user.create({data: payload})
+				res.status(200).json(user);
 			}
 
 			break;
