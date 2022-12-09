@@ -6,10 +6,11 @@ export default async function UserApi(req: NextApiRequest, res: NextApiResponse)
 		case "POST":
 			console.log(req.body)
 			const post = await prisma.user.findFirst({
-				where: { 
-					firebaseId: req.body.uid.toString() },
+				where: {
+					email: req.body.email,
+				},
 			});
-			if(post !== null) {
+			if (post !== null) {
 				res.status(200).json(post);
 			} else {
 				const google = await prisma.user.create({
@@ -25,15 +26,15 @@ export default async function UserApi(req: NextApiRequest, res: NextApiResponse)
 
 			break;
 
-        case "DELETE":
-            const remove = await prisma.user.delete({
-                where: { email: req.body.email },
-            }).then(() => {
-                res.status(200).json({ message: `User with email ${req.body.email} was deleted!` });
-            })
-            .catch(error => res.status(400).json({ message: error }));
-            
-            break;
+		case "DELETE":
+			const remove = await prisma.user.delete({
+				where: { email: req.body.email },
+			}).then(() => {
+				res.status(200).json({ message: `User with email ${req.body.email} was deleted!` });
+			})
+				.catch(error => res.status(400).json({ message: error }));
+
+			break;
 
 		default:
 			res.status(500).json({ message: "Invalid method." });
