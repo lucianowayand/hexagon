@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { AuthContextType } from "./types";
 import { User } from "../../types";
 import { auth } from "../../services/firebase";
@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 
 const defaultValues: AuthContextType = {
 	handleGoogleSignIn: async () => { },
+	handleEmailSignIn: async () => { },
+	handleEmailSignUp: async () => { },
 	user: undefined,
 	signOut: () => { },
 };
@@ -23,9 +25,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		setUser(getUserFromLocalStorage())
 	}, []);
 
-	function getUserFromLocalStorage(){
+	function getUserFromLocalStorage() {
 		const user = localStorage.getItem("user");
-		if(user){
+		if (user) {
 			return JSON.parse(user) as User;
 		}
 		return undefined;
@@ -33,7 +35,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const router = useRouter()
 
-	function signOut(){
+	function signOut() {
 		localStorage.removeItem("user");
 		setUser(undefined);
 		router.push('/')
@@ -52,10 +54,33 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	}
 
+	async function handleEmailSignIn(email: string, password: string) {
+		const response = await signInWithEmailAndPassword(auth, email, password)
+		try {
+			const res = await api.post("/api/users", { uid: response.user.uid, name: response.user.displayName, email: response.user.email })
+			setUser(res.data)
+			localStorage.setItem("user", JSON.stringify(res.data))
+		} catch (error: any) {
+			console.log(error.response.data)
+		}
+	}
+	async function handleEmailSignUp(email: string, password: string, name: string) {
+		const response = await createUserWithEmailAndPassword(auth, email, password)
+		try {
+			const res = await api.post("/api/users", { uid: response.user.uid, name: name, email: response.user.email })
+			setUser(res.data)
+			localStorage.setItem("user", JSON.stringify(res.data))
+		} catch (error: any) {
+			console.log(error.response.data)
+		}
+	}
+
 	return (
 		<AuthContext.Provider
 			value={{
 				handleGoogleSignIn,
+				handleEmailSignIn,
+				handleEmailSignUp,
 				user,
 				signOut,
 			}}

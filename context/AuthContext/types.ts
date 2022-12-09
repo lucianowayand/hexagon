@@ -6,8 +6,10 @@ interface User {
 }
 
 interface AuthContextType {
-    handleGoogleSignIn: () => Promise<void>;
-    user?: User | undefined;
+	handleGoogleSignIn: () => Promise<void>;
+	handleEmailSignIn: (email: string, password: string) => Promise<void>;
+	handleEmailSignUp: (email: string, password: string, name: string) => Promise<void>;
+	user?: User | undefined;
 	signOut: () => void;
 }
 

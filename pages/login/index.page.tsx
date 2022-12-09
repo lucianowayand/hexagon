@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 
 export default function Login() {
 	const { title, primaryColor, language } = useContext(ThemeContext);
-	const { handleGoogleSignIn, user } = useContext(AuthContext);
+	const { handleGoogleSignIn, handleEmailSignIn, handleEmailSignUp, user } = useContext(AuthContext);
 	const text = (i18n as any)[language] as In18;
 	const router = useRouter();
 
@@ -29,16 +29,25 @@ export default function Login() {
 		}
 	}, [user])
 
-	const submitFunction = (data:any) => {
-		console.log(data)
+	const submitFunction = async (data: any) => {
+		const payload = {
+			email: data.email,
+			password: data.password,
+			name: newUser ? data.name : null
+		}
+		if (newUser) {
+			handleEmailSignUp(payload.email, payload.password, payload.name)
+		} else {
+			handleEmailSignIn(payload.email, payload.password)
+		}
 	}
 
 	const Label = ({ children }: { children: React.ReactNode }) => {
 		return <label className="text-gray-500">{children}</label>;
 	};
 
-	const Input = ({ type, placeholder }: { type: string; placeholder: string }) => {
-		return <input className="bg-gray-100 p-2 rounded border" placeholder={placeholder} type={type} />;
+	const Input = ({ type, placeholder, data }: { type: string; placeholder: string, data: string }) => {
+		return <input className="bg-gray-100 p-2 rounded border" placeholder={placeholder} type={type} {...register(data)} />;
 	};
 
 	const LoginButton = ({ children }: { children: React.ReactNode }) => {
@@ -88,15 +97,15 @@ export default function Login() {
 				<form className="flex flex-col" onSubmit={handleSubmit(submitFunction)}>
 					{newUser ? <div className="flex flex-col pb-4">
 						<Label>{text.name}</Label>
-						<Input placeholder={text.name_placeholder} type="text" {...register("name")}/>
+						<Input placeholder={text.name_placeholder} type="text" data="name" />
 					</div> : null}
 					<div className="flex flex-col pb-4">
 						<Label>{text.email}</Label>
-						<Input placeholder={text.email_placeholder} type="email"  {...register("email")}/>
+						<Input placeholder={text.email_placeholder} type="email" data="email" />
 					</div>
 					<div className="flex flex-col pb-4">
 						<Label>{text.password}</Label>
-						<Input placeholder="********" type="password"  {...register("password")} />
+						<Input placeholder="********" type="password" data="password" />
 					</div>
 					{!newUser ? <div className="flex flex-col">
 						<div className="flex justify-between pt-2">
@@ -108,13 +117,13 @@ export default function Login() {
 							</Link>
 						</div>
 					</div> : <div className="flex justify-between pt-2">
-							<Link href="#" className="underline text-xs pt-1 text-gray-500">
-								{text.forgot_password}
-							</Link>
-							<Link href="" onClick={() => setNewUser(false)} className="underline text-xs pt-1 text-gray-500">
-								{text.login}
-							</Link>
-						</div>}
+						<Link href="#" className="underline text-xs pt-1 text-gray-500">
+							{text.forgot_password}
+						</Link>
+						<Link href="" onClick={() => setNewUser(false)} className="underline text-xs pt-1 text-gray-500">
+							{text.login}
+						</Link>
+					</div>}
 					<LoginButton>{text.login}</LoginButton>
 					<Divider text={text.or} />
 					<GoogleLoginButton>Continue with Google</GoogleLoginButton>
