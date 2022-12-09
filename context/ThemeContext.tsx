@@ -6,15 +6,23 @@ export const ThemeContext = createContext({
     title: "hexagon",
     primaryColor: '#fff',
     secondaryColor: '#000',
-    language: 'en-US'
+    language: 'en-US',
+    getAttributesArray: async () => { },
+    updateAttribute: async (attribute: Attribute) => { }
 })
+
+export interface Attribute {
+    name: string,
+    value: string
+    id: number
+}
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     const [attributes, setAttributes] = useState({
         title: "hexagon",
         primaryColor: '#fff',
         secondaryColor: '#000',
-        language: 'en-US'
+        language: 'en-US',
     })
     const [isLoading, setIsloading] = useState(true)
 
@@ -30,6 +38,16 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         setIsloading(false)
     }
 
+    const getAttributesArray = async () => {
+        const res = await api.get('/api/attributes')
+        return res.data
+    }
+
+    const updateAttribute = async (attribute: any) => {
+        await api.patch('/api/attributes', { attribute })
+        getAttributes()
+    }
+
     useEffect(() => {
         getAttributes()
     }, [])
@@ -40,7 +58,9 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
                 title: attributes.title,
                 primaryColor: attributes.primaryColor,
                 secondaryColor: attributes.secondaryColor,
-                language: attributes.language
+                language: attributes.language,
+                getAttributesArray,
+                updateAttribute
             }}>
             {isLoading === false ? children : null}
         </ThemeContext.Provider>
