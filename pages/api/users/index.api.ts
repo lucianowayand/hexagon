@@ -4,8 +4,10 @@ import { prisma } from "../../../services/prisma";
 export default async function UserApi(req: NextApiRequest, res: NextApiResponse) {
 	switch (req.method) {
 		case "POST":
+			console.log(req.body)
 			const post = await prisma.user.findFirst({
-				where: { firebaseId: req.body.uid },
+				where: { 
+					firebaseId: req.body.uid.toString() },
 			});
 			if(post !== null) {
 				res.status(200).json(post);
