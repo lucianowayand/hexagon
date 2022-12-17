@@ -129,7 +129,7 @@ export default function Login() {
 							{text.login}
 						</Link>
 					</div>}
-					<LoginButton>{text.login}</LoginButton>
+					<LoginButton>{!newUser ? text.login : text.register}</LoginButton>
 					<Divider text={text.or} />
 					<GoogleLoginButton>Continue with Google</GoogleLoginButton>
 				</div>
