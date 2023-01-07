@@ -18,7 +18,7 @@ export default async function UserApi(req: NextApiRequest, res: NextApiResponse)
 				const payload: Prisma.UserCreateInput = {
 						email: req.body.email,
 						name: req.body.name,
-						firebaseId: req.body.firebaseId,
+						firebaseId: req.body.uid,
 						admin: false
 				}
 
