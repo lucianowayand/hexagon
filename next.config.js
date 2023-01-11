@@ -6,7 +6,7 @@ const nextConfig = {
 		locales: ["en-US", "pt-BR"],
 		defaultLocale: "en-US",
 	},
-	pageExtensions: ["page.tsx", "api.ts"],
+	pageExtensions: ["page.tsx", "api.ts", "ts"],
 	env: {
 		FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
 		FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,

@@ -3,6 +3,7 @@ interface User {
 	email: string;
 	firebaseId: string;
 	name: string;
+	jwt: string;
 }
 
 interface AuthContextType {
@@ -13,4 +14,4 @@ interface AuthContextType {
 	signOut: () => void;
 }
 
-export type { AuthContextType };
+export type { AuthContextType, User };
