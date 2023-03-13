@@ -10,9 +10,13 @@ Clone this repository and tweak with the .env filling in the necessary informati
 Follow this steps:
 
 1- Create a docker container with the docker-compose file for mysql
+
 2- Create the .env file with your database url and the firebase credentials
+
 3- Run `npx prisma migrate dev --name init` to create the database
+
 4- Run `npx prisma db seed --preview-feature` to populate the database with some initial data
+
 5- Run `npm run dev` to start the server
 
 .env example:
