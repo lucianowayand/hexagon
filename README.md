@@ -7,6 +7,18 @@ To mount the app even on your local machine you'll need firebase auth credential
 ### How to deploy
 Clone this repository and tweak with the .env filling in the necessary information.
 
+Follow this steps:
+
+1- Create a docker container with the docker-compose file for mysql
+
+2- Create the .env file with your database url and the firebase credentials
+
+3- Run `npx prisma migrate dev --name init` to create the database
+
+4- Run `npx prisma db seed --preview-feature` to populate the database with some initial data
+
+5- Run `npm run dev` to start the server
+
 .env example:
 ```
 DATABASE_URL='provider://user:password@address/hexagon?'
@@ -27,3 +39,6 @@ npx prisma db push
 to update the development database, after that create a deploy request and merge the branches.
 
 Don't delete the development branch! There is no need to create and delete branches all the time, just keep using the same development branch
+
+
+```
